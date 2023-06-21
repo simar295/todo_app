@@ -37,6 +37,13 @@ class _todoappState extends State<todoapp> {
     }
   }
 
+  void heredeletetask(int index) {
+    print("object");
+    setState(() {
+      mytodo.removeAt(index);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     /*   final getprovider = ref.watch(giveprovider); */
@@ -62,7 +69,8 @@ class _todoappState extends State<todoapp> {
           toolbarHeight: 105,
           title: Text(
             "TO DO ",
-            style: TextStyle(color: Colors.black, fontSize: 20),
+            style: TextStyle(
+                color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
           ),
           backgroundColor: Colors.yellow.shade500,
         ),
@@ -76,7 +84,12 @@ class _todoappState extends State<todoapp> {
         ),
         body: ListView.builder(
           itemCount: mytodo.length,
-          itemBuilder: (context, index) => listwidget(getlist: mytodo[index]),
+          itemBuilder: (context, index) => listwidget(
+            getlist: mytodo[index],
+            deletetask: () {
+              heredeletetask(index);
+            },
+          ),
         ),
       ),
     );
