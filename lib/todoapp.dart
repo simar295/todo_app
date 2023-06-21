@@ -1,28 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/dialogwidget.dart';
-
 import 'package:todo_app/listwidget.dart';
 
 class todoapp extends StatefulWidget {
-  const todoapp({super.key});
+  const todoapp({
+    super.key,
+  });
 
   @override
   State<todoapp> createState() => _todoappState();
 }
 
+final givecontroller = TextEditingController();
+
 class _todoappState extends State<todoapp> {
+  final List mytodo = [
+    ["mywork", false],
+    ["exercise", true],
+  ];
+  void submitdata() {
+    if (givecontroller.text.trim().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          duration: Duration(milliseconds: 1000),
+          content: Text(
+            "Task is empty",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+      );
+    } else {
+      setState(() {
+        mytodo.add([givecontroller.text, false]);
+      });
+      Navigator.of(context).pop();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    List mytodo = [
-      ["mywork", false],
-      ["exercise", true]
-    ];
+    /*   final getprovider = ref.watch(giveprovider); */
 
     void createtask() {
       showDialog(
           context: context,
           builder: (context) {
-            return dialogbox();
+            return dialogbox(
+              getlist2: mytodo,
+              getcontroller: givecontroller,
+              onsave: submitdata,
+            );
           });
     }
 

@@ -11,11 +11,10 @@ class listwidget extends StatefulWidget {
 }
 
 class _listwidgetState extends State<listwidget> {
-  bool initial = true;
-
+  
   void changecheck(bool? x) {
     setState(() {
-      initial = x!;
+      widget.getlist[1] = !widget.getlist[1];
     });
   }
 
@@ -51,7 +50,7 @@ class _listwidgetState extends State<listwidget> {
               widget.getlist[0].toString(),
             ),
             leading: Checkbox(
-              value: initial,
+              value: widget.getlist[1],
               onChanged: (value) {
                 changecheck(value);
               },
