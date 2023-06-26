@@ -37,7 +37,8 @@ class _todoappState extends State<todoapp> {
     }
   }
 
-  void heredeletetask(int index) {
+  
+void heredeletetask(int index) {
     print("object");
     setState(() {
       mytodo.removeAt(index);
