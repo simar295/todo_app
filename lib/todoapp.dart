@@ -37,7 +37,8 @@ class _todoappState extends State<todoapp> {
     }
   }
 
-  void heredeletetask(int index) {
+  
+void heredeletetask(int index) {
     print("object");
     setState(() {
       mytodo.removeAt(index);
@@ -59,6 +60,7 @@ class _todoappState extends State<todoapp> {
             );
           });
     }
+
 
     return MaterialApp(
       home: Scaffold(
