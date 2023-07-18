@@ -32,6 +32,7 @@ class _todoappState extends State<todoapp> {
 
     print(getresponse.statusCode);
 
+
     final Map listdata = json.decode(getresponse.body);
     for (final item in listdata.entries) {
       setState(() {
@@ -68,6 +69,7 @@ class _todoappState extends State<todoapp> {
         },
         body: json.encode({
           "data": givecontroller.text,
+          "value":false,
         }),
       );
 
@@ -86,14 +88,12 @@ class _todoappState extends State<todoapp> {
       mytodo.removeAt(index);
     });
 
-
-
     final geturl = Uri.https(
         'todo-app-f7776-default-rtdb.firebaseio.com', "todo-data.json");
     final getresponse = await http.get(geturl);
 
     final Map listdata = json.decode(getresponse.body);
-    
+
     final delurl = Uri.https('todo-app-f7776-default-rtdb.firebaseio.com',
         "todo-data/${listdata.keys.elementAt(index)}.json");
     http.delete(delurl);
@@ -127,7 +127,10 @@ class _todoappState extends State<todoapp> {
             SizedBox(
               height: 40,
             ),
-            Text("start adding tasks",style: TextStyle(fontWeight: FontWeight.bold),),
+            Text(
+              "start adding tasks",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
           ],
         ),
       );

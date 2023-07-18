@@ -64,6 +64,7 @@ class _listwidgetState extends State<listwidget> {
               value: widget.getlist[1],
               onChanged: (value) {
                 changecheck(value);
+                
               },
               activeColor: Colors.black,
             ),
