@@ -32,7 +32,6 @@ class _todoappState extends State<todoapp> {
 
     print(getresponse.statusCode);
 
-
     final Map listdata = json.decode(getresponse.body);
     for (final item in listdata.entries) {
       setState(() {
@@ -48,6 +47,7 @@ class _todoappState extends State<todoapp> {
   ];
 
   void submitdata() async {
+    
     if (givecontroller.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -69,7 +69,7 @@ class _todoappState extends State<todoapp> {
         },
         body: json.encode({
           "data": givecontroller.text,
-          "value":false,
+          "value": false,
         }),
       );
 
@@ -135,42 +135,103 @@ class _todoappState extends State<todoapp> {
         ),
       );
     } else {
-      content = ListView.builder(
-        itemCount: mytodo.length,
-        itemBuilder: (context, index) => listwidget(
-          getlist: mytodo[index],
-          deletetask: () {
-            heredeletetask(index);
-          },
+      content = Expanded(
+        child: ListView.builder(
+          itemCount: mytodo.length,
+          itemBuilder: (context, index) => listwidget(
+            getlist: mytodo[index],
+            deletetask: () {
+              heredeletetask(index);
+            },
+          ),
         ),
       );
     }
 
     return MaterialApp(
       home: Scaffold(
-          backgroundColor: Colors.yellow.shade300,
-          appBar: AppBar(
-            centerTitle: true,
-            elevation: 0,
-            toolbarHeight: 105,
-            title: Text(
-              "TO DO ",
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
-            ),
-            backgroundColor: Colors.yellow.shade500,
+        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+        appBar: AppBar(
+          /* actions: [
+              Icon(
+                Icons.circle_notifications,
+                size: 40,
+              )
+            ], */
+          elevation: 0,
+          toolbarHeight: 135,
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Welcome back ",
+                    style: TextStyle(
+                        color: const Color.fromARGB(255, 255, 255, 255),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Icon(Icons.circle_notifications, size: 30),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                child: Container(
+                  height: 40,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(15),
+                      suffixIcon: Icon(
+                        Icons.settings_outlined,
+                        color: Color(0xFF46E69E),
+                      ),
+                      prefixIcon: Icon(
+                        Icons.search,
+                        color: Color(0xFF46E69E),
+                      ),
+                      label: Text(
+                        "search Tasks",
+                        style: TextStyle(fontSize: 10),
+                      ),
+                      filled: true,
+                      fillColor: Color.fromARGB(255, 255, 255, 255),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide.none,
+                      ),
+                      /*  border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30), */
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-          floatingActionButton: FloatingActionButton(
-            child: Icon(
-              Icons.add,
-              color: Colors.white,
-            ),
-            backgroundColor: Colors.black,
-            onPressed: createtask,
+          backgroundColor: Color.fromARGB(255, 150, 164, 241),
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(
+            Icons.add,
+            color: Colors.white,
           ),
-          body: content),
+          backgroundColor: Colors.black,
+          onPressed: createtask,
+        ),
+        body: Stack(
+          children: [
+            Column(
+              children: [
+                content,
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
-
-
-
 class listwidget extends StatefulWidget {
   const listwidget(
       {super.key, required this.getlist, required this.deletetask});
@@ -42,31 +38,42 @@ class _listwidgetState extends State<listwidget> {
               onPressed: (context) {
                 widget.deletetask();
               },
-              backgroundColor: Color.fromARGB(255, 252, 66, 97),
+              backgroundColor: Color.fromARGB(255, 0, 0, 0),
               foregroundColor: Colors.white,
               icon: Icons.delete_forever_sharp,
-              label: 'delete',
+              label: 'delete', borderRadius: BorderRadius.circular(0),
             ),
           ],
         ),
-        
         child: Material(
-          color: Colors.yellow.shade400,
+          color: Color.fromARGB(255, 255, 85, 136),
           borderRadius: BorderRadius.circular(10),
-          elevation: 2,
-          shadowColor: Colors.white,
-          child: ListTile(
-            title: Text(
-              widget.getlist[0].toString(),
-              style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
-            ),
-            leading: Checkbox(
-              value: widget.getlist[1],
-              onChanged: (value) {
-                changecheck(value);
-                
-              },
-              activeColor: Colors.black,
+          elevation: 4,
+          shadowColor: Color.fromARGB(255, 17, 17, 17),
+          child: Container(
+            height: 140,
+            child: ListTile(
+              title: Text(
+                widget.getlist[0].toString(),
+                style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 0, 0, 0),
+                    fontSize: 20),
+              ),
+              subtitle: Text(
+                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+                overflow: TextOverflow.fade,
+                style: TextStyle(color: Colors.white),
+              ),
+              leading: Container(
+                margin: EdgeInsets.only(right: 2),
+                child: Checkbox(
+                  value: widget.getlist[1],
+                  onChanged: (value) {
+                    changecheck(value);
+                  },
+                ),
+              ),
             ),
           ),
         ),

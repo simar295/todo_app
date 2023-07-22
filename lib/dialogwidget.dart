@@ -8,7 +8,7 @@ class dialogbox extends StatefulWidget {
       required this.onsave});
 
   final List getlist2;
-  final getcontroller;
+  late final getcontroller;
   final VoidCallback onsave;
 
   @override
