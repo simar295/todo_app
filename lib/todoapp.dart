@@ -47,7 +47,6 @@ class _todoappState extends State<todoapp> {
   ];
 
   void submitdata() async {
-    
     if (givecontroller.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -79,6 +78,7 @@ class _todoappState extends State<todoapp> {
       Navigator.of(context).pop();
       setState(() {
         mytodo.add([givecontroller.text, false]);
+        givecontroller.clear();
       });
     }
   }

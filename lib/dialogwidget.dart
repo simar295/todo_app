@@ -24,9 +24,11 @@ class _dialogboxState extends State<dialogbox> {
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(55)),
         child: AlertDialog(
           elevation: 2,
-          shadowColor: Colors.yellow,
+          shadowColor: const Color.fromARGB(255, 0, 0, 0),
           backgroundColor: Colors.black,
           title: TextField(
+            keyboardType: TextInputType.text,
+            textCapitalization: TextCapitalization.characters,
             controller: widget.getcontroller,
             decoration: const InputDecoration(
               label: Text("add task"),
@@ -45,8 +47,9 @@ class _dialogboxState extends State<dialogbox> {
                     style: TextStyle(color: Colors.black),
                   ),
                   style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStatePropertyAll(Colors.amberAccent),
+                    backgroundColor: MaterialStatePropertyAll(
+                      Color.fromARGB(255, 255, 85, 136),
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -59,8 +62,9 @@ class _dialogboxState extends State<dialogbox> {
                     style: TextStyle(color: Colors.black),
                   ),
                   style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStatePropertyAll(Colors.amberAccent),
+                    backgroundColor: MaterialStatePropertyAll(
+                      Color.fromARGB(255, 255, 85, 136),
+                    ),
                   ),
                 ),
               ],
