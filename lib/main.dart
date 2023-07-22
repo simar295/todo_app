@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:todo_app/todoapp.dart';
 
+
 void main() {
   runApp(myapp());
 }
@@ -10,7 +11,6 @@ void main() {
 
 class myapp extends StatelessWidget {
   const myapp({super.key});
-
 
 
   @override
