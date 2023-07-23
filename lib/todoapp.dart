@@ -9,12 +9,13 @@ class todoapp extends StatefulWidget {
   const todoapp({
     super.key,
   });
-
+ 
   @override
   State<todoapp> createState() => _todoappState();
 }
 
 final givecontroller = TextEditingController();
+final givecontroller2 = TextEditingController();
 
 class _todoappState extends State<todoapp> {
   @override
@@ -35,7 +36,7 @@ class _todoappState extends State<todoapp> {
     final Map listdata = json.decode(getresponse.body);
     for (final item in listdata.entries) {
       setState(() {
-        mytodo.add([item.value['data'], false]);
+        mytodo.add([item.value['data'], item.value['description'],item.value['value'], ]);
       });
     }
   }
@@ -57,6 +58,17 @@ class _todoappState extends State<todoapp> {
           ),
         ),
       );
+    }
+    if (givecontroller2.text.trim().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          duration: Duration(milliseconds: 1000),
+          content: Text(
+            "Description is empty",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+      );
     } else {
       //firebase sending data
       final url = Uri.https(
@@ -68,6 +80,7 @@ class _todoappState extends State<todoapp> {
         },
         body: json.encode({
           "data": givecontroller.text,
+          "description": givecontroller2.text,
           "value": false,
         }),
       );
@@ -77,8 +90,9 @@ class _todoappState extends State<todoapp> {
       }
       Navigator.of(context).pop();
       setState(() {
-        mytodo.add([givecontroller.text, false]);
+        mytodo.add([givecontroller.text, givecontroller2.text, false]);
         givecontroller.clear();
+        givecontroller2.clear();
       });
     }
   }
@@ -110,6 +124,7 @@ class _todoappState extends State<todoapp> {
             return dialogbox(
               getlist2: mytodo,
               getcontroller: givecontroller,
+              getcontroller2: givecontroller2,
               onsave: submitdata,
             );
           });

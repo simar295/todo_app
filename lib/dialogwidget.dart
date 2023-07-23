@@ -5,10 +5,13 @@ class dialogbox extends StatefulWidget {
       {super.key,
       required this.getlist2,
       required this.getcontroller,
+      required this.getcontroller2,
       required this.onsave});
 
   final List getlist2;
   late final getcontroller;
+  late final getcontroller2;
+
   final VoidCallback onsave;
 
   @override
@@ -26,15 +29,30 @@ class _dialogboxState extends State<dialogbox> {
           elevation: 2,
           shadowColor: const Color.fromARGB(255, 0, 0, 0),
           backgroundColor: Colors.black,
-          title: TextField(
-            keyboardType: TextInputType.text,
-            textCapitalization: TextCapitalization.characters,
-            controller: widget.getcontroller,
-            decoration: const InputDecoration(
-              label: Text("add task"),
-              filled: true, //<-- SEE HERE
-              fillColor: Color.fromARGB(255, 252, 252, 252), //<-- SEE HERE
-            ),
+          title: Column(
+            children: [
+              TextField(
+                keyboardType: TextInputType.text,
+                textCapitalization: TextCapitalization.characters,
+                controller: widget.getcontroller,
+                decoration: const InputDecoration(
+                  label: Text("add task"),
+                  filled: true, //<-- SEE HERE
+                  fillColor: Color.fromARGB(255, 252, 252, 252), //<-- SEE HERE
+                ),
+              ),
+              SizedBox(height: 20),
+              TextField(
+                keyboardType: TextInputType.text,
+                textCapitalization: TextCapitalization.words,
+                controller: widget.getcontroller2,
+                decoration: const InputDecoration(
+                  label: Text("Write Description"),
+                  filled: true, //<-- SEE HERE
+                  fillColor: Color.fromARGB(255, 252, 252, 252), //<-- SEE HERE
+                ),
+              ),
+            ],
           ),
           actions: [
             Row(

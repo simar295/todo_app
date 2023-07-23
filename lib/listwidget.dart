@@ -10,6 +10,7 @@ class listwidget extends StatefulWidget {
 
   final List getlist;
   final VoidCallback deletetask;
+  
 
   @override
   State<listwidget> createState() => _listwidgetState();
@@ -18,14 +19,14 @@ class listwidget extends StatefulWidget {
 class _listwidgetState extends State<listwidget> {
   void changecheck(bool? x) {
     setState(() {
-      widget.getlist[1] = !widget.getlist[1];
+      widget.getlist[2] = !widget.getlist[2];
     });
   }
 
+  var col1 = Colors.primaries[Random().nextInt(Colors.primaries.length)];
+
   @override
   Widget build(BuildContext context) {
-    var col1 = Colors.primaries[Random().nextInt(Colors.primaries.length)];
-
     return Slidable(
       direction: Axis.horizontal,
       endActionPane: ActionPane(
@@ -37,7 +38,7 @@ class _listwidgetState extends State<listwidget> {
               widget.deletetask();
             },
             backgroundColor: Color.fromARGB(255, 0, 0, 0),
-            foregroundColor: const Color.fromARGB(255, 0, 0, 0),
+            foregroundColor: Color.fromARGB(255, 255, 52, 52),
             icon: Icons.delete_forever_sharp,
             label: 'delete', borderRadius: BorderRadius.circular(0),
           ),
@@ -65,31 +66,53 @@ class _listwidgetState extends State<listwidget> {
             ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
           ),
           child: GridTile(
-            child: ListTile(
-              title: Text(
-                widget.getlist[0].toString(),
-                style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 0, 0, 0),
-                    fontSize: 15),
-              ),
-              /*  subtitle: Text(
-                  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-                  overflow: TextOverflow.fade,
-                  style: TextStyle(color: Colors.white),
-                ), */
+              child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      widget.getlist[0].toString(),
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 0, 0, 0),
+                          fontSize: 15),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(right: 0),
 
-              trailing: Container(
-                margin: EdgeInsets.only(right: 0),
-                child: Checkbox(
-                  value: widget.getlist[1],
-                  onChanged: (value) {
-                    changecheck(value);
-                  },
+                      child: Checkbox(
+                        value: widget.getlist[2],
+                        onChanged: (value) {
+                          changecheck(value);
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ),
-          ),
+               Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  widget.getlist[1].toString(), 
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 4,
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          )
+
+              /*  ListTile(
+              title:
+              subtitle: 
+              trailing:
+            ), */
+              ),
         ),
       ),
     );
