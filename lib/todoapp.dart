@@ -125,7 +125,7 @@ class _todoappState extends State<todoapp> {
           children: [
             CircularProgressIndicator(color: Colors.black, strokeWidth: 10),
             SizedBox(
-              height: 40,
+              height: 80,
             ),
             Text(
               "start adding tasks",
@@ -136,7 +136,10 @@ class _todoappState extends State<todoapp> {
       );
     } else {
       content = Expanded(
-        child: ListView.builder(
+        child: GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2, crossAxisSpacing: 10, mainAxisSpacing: 0),
+          padding: EdgeInsets.all(10),
           itemCount: mytodo.length,
           itemBuilder: (context, index) => listwidget(
             getlist: mytodo[index],
@@ -147,11 +150,16 @@ class _todoappState extends State<todoapp> {
         ),
       );
     }
-
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: Color.fromARGB(255, 253, 253, 253),
         appBar: AppBar(
+          flexibleSpace: Container(
+            width: double.infinity,
+            height: 180,
+            child: Image.asset('assets/gif3.gif'),
+          ),
+
           /* actions: [
               Icon(
                 Icons.circle_notifications,
@@ -166,17 +174,28 @@ class _todoappState extends State<todoapp> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "Welcome back ",
-                    style: TextStyle(
-                        color: const Color.fromARGB(255, 255, 255, 255),
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
+                  RichText(
+                    text: const TextSpan(children: [
+                      TextSpan(
+                          text: "TO-",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold)),
+                      TextSpan(
+                          text: "DO",
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.greenAccent))
+                    ]),
                   ),
-                  Icon(Icons.circle_notifications, size: 30),
+                  const Icon(
+                    Icons.circle_notifications,
+                    size: 30,
+                    color: Color(0xFF46E69E),
+                  ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Container(
@@ -186,15 +205,15 @@ class _todoappState extends State<todoapp> {
                   child: TextField(
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(15),
-                      suffixIcon: Icon(
+                      suffixIcon: const Icon(
                         Icons.settings_outlined,
                         color: Color(0xFF46E69E),
                       ),
-                      prefixIcon: Icon(
+                      prefixIcon: const Icon(
                         Icons.search,
                         color: Color(0xFF46E69E),
                       ),
-                      label: Text(
+                      label: const Text(
                         "search Tasks",
                         style: TextStyle(fontSize: 10),
                       ),
@@ -212,20 +231,55 @@ class _todoappState extends State<todoapp> {
               ),
             ],
           ),
-          backgroundColor: Color.fromARGB(255, 150, 164, 241),
+          backgroundColor: Color.fromARGB(255, 0, 0, 0),
         ),
         floatingActionButton: FloatingActionButton(
-          child: Icon(
+          backgroundColor: Colors.black,
+          onPressed: createtask,
+          child: const Icon(
             Icons.add,
             color: Colors.white,
           ),
-          backgroundColor: Colors.black,
-          onPressed: createtask,
         ),
         body: Stack(
           children: [
             Column(
               children: [
+                Container(
+                  padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                  child: const Column(
+                    children: [
+                      /*  Container(
+                        decoration: BoxDecoration(
+                          border:
+                              Border.all(width: 6, color: Colors.pinkAccent),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        width: double.infinity,
+                        child: Image.asset(
+                          'assets/abstract.jpg',
+                          fit: BoxFit.fill,
+                        ),
+                        height: 140,
+                      ), */
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0.8, 0.8, 0.8, 0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Alloted Tasks",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromARGB(255, 116, 116, 116)),
+                            ),
+                            Icon(Icons.notes),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 content,
               ],
             ),
