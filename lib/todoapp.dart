@@ -77,7 +77,7 @@ class _todoappState extends State<todoapp> {
       //firebase sending data
       final url = Uri.https(
           'todo-app-f7776-default-rtdb.firebaseio.com', "todo-data.json");
-      final response = await http.post(
+      /* final response = */ await http.post(
         url,
         headers: {
           "Content-Type": "application/json",
@@ -128,7 +128,7 @@ class _todoappState extends State<todoapp> {
 
     final delurl = Uri.https('todo-app-f7776-default-rtdb.firebaseio.com',
         "todo-data/${listdata.keys.elementAt(index)}.json");
-    final response = await http.patch(
+   /*  final response = */ await http.patch(
       delurl,
       headers: {
         "Content-Type": "application/json",
