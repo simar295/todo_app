@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:todo_app/dialogwidget.dart';
 import 'package:todo_app/listwidget.dart';
@@ -146,7 +144,7 @@ class _todoappState extends State<todoapp> {
       changecheck = !changecheck;
 
     });
-    
+
     if (!context.mounted) {
       return;
     }
