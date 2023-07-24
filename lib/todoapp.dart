@@ -121,14 +121,17 @@ class _todoappState extends State<todoapp> {
 
 /////////////////////////////////////////////////////////////////////////
   bool changecheck = false;
-  void doupdatecheck(int index) async {
+  void doupdatecheck(int index, context2) async {
+   
+
     final geturl = Uri.https(
         'todo-app-f7776-default-rtdb.firebaseio.com', "todo-data.json");
     final getresponse = await http.get(geturl);
     final Map listdata = json.decode(getresponse.body);
-
     final delurl = Uri.https('todo-app-f7776-default-rtdb.firebaseio.com',
         "todo-data/${listdata.keys.elementAt(index)}.json");
+
+
     /*  final response = */ await http.patch(
       delurl,
       headers: {
@@ -140,10 +143,22 @@ class _todoappState extends State<todoapp> {
         "value": changecheck,
       }),
     );
-
-    setState(() {
+    if (changecheck==true) {
+        ScaffoldMessenger.of(context2).showSnackBar(
+          const SnackBar(
+            duration: Duration(milliseconds: 3000),
+            content: Text(
+              "task marked completed",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+        );
+      }
+ setState(() {
       changecheck = !changecheck;
+       
     });
+
 
     if (!context.mounted) {
       return;
@@ -195,7 +210,7 @@ class _todoappState extends State<todoapp> {
           padding: EdgeInsets.all(10),
           itemCount: mytodo.length,
           itemBuilder: (context, index) => listwidget(
-            updatecheck: () => doupdatecheck(index),
+            updatecheck: () => doupdatecheck(index, context),
             getvalue: changecheck,
             getlist: mytodo[index],
             deletetask: () {
@@ -206,19 +221,18 @@ class _todoappState extends State<todoapp> {
       );
     }
 
-  //////////////////////////////////////////////////////////////////////////////  
+    //////////////////////////////////////////////////////////////////////////////
 
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Color.fromARGB(255, 253, 253, 253),
         appBar: AppBar(
-      flexibleSpace:appbarimage(),
-      elevation: 0,
-      toolbarHeight: 135,
-      title: appbartitle(),
-      backgroundColor: Color.fromARGB(255, 0, 0, 0),
-    ),
-    
+          flexibleSpace: appbarimage(),
+          elevation: 0,
+          toolbarHeight: 135,
+          title: appbartitle(),
+          backgroundColor: Color.fromARGB(255, 0, 0, 0),
+        ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.black,
           onPressed: createtask,
@@ -234,9 +248,8 @@ class _todoappState extends State<todoapp> {
               child: const Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0.8, 0.8, 0.8, 0),
-                    child: allotedtaskrow()
-                  ),
+                      padding: const EdgeInsets.fromLTRB(0.8, 0.8, 0.8, 0),
+                      child: allotedtaskrow()),
                 ],
               ),
             ),
@@ -248,17 +261,14 @@ class _todoappState extends State<todoapp> {
   }
 }
 
-
-     /* actions: [
+/* actions: [
               Icon(
                 Icons.circle_notifications,
                 size: 40,
               )
             ], */
 
-
-
-   /*  Container( add image in body on top 
+/*  Container( add image in body on top 
 
                         decoration: BoxDecoration(
                           border:

@@ -92,6 +92,7 @@ class _listwidgetState extends State<listwidget> {
                     Container(
                       margin: EdgeInsets.only(right: 5),
                       child: Checkbox(
+                        fillColor: MaterialStatePropertyAll(Colors.black),
                         value: widget.getlist[2],
                         onChanged: (value) {
                           changecheck();
