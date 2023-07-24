@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/allotedtaskrow.dart';
+import 'package:todo_app/appbarimage.dart';
+import 'package:todo_app/appbartitle.dart';
 import 'package:todo_app/dialogwidget.dart';
 import 'package:todo_app/listwidget.dart';
-
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -120,7 +122,6 @@ class _todoappState extends State<todoapp> {
 /////////////////////////////////////////////////////////////////////////
   bool changecheck = false;
   void doupdatecheck(int index) async {
-   
     final geturl = Uri.https(
         'todo-app-f7776-default-rtdb.firebaseio.com', "todo-data.json");
     final getresponse = await http.get(geturl);
@@ -128,7 +129,7 @@ class _todoappState extends State<todoapp> {
 
     final delurl = Uri.https('todo-app-f7776-default-rtdb.firebaseio.com',
         "todo-data/${listdata.keys.elementAt(index)}.json");
-   /*  final response = */ await http.patch(
+    /*  final response = */ await http.patch(
       delurl,
       headers: {
         "Content-Type": "application/json",
@@ -140,9 +141,8 @@ class _todoappState extends State<todoapp> {
       }),
     );
 
-       setState(() {
+    setState(() {
       changecheck = !changecheck;
-
     });
 
     if (!context.mounted) {
@@ -205,89 +205,20 @@ class _todoappState extends State<todoapp> {
         ),
       );
     }
+
+  //////////////////////////////////////////////////////////////////////////////  
+
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Color.fromARGB(255, 253, 253, 253),
         appBar: AppBar(
-          flexibleSpace: Container(
-            width: double.infinity,
-            height: 180,
-            child: Image.asset('assets/gif3.gif'),
-          ),
-
-          /* actions: [
-              Icon(
-                Icons.circle_notifications,
-                size: 40,
-              )
-            ], */
-          elevation: 0,
-          toolbarHeight: 135,
-          title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  RichText(
-                    text: const TextSpan(children: [
-                      TextSpan(
-                          text: "TO-",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold)),
-                      TextSpan(
-                          text: "DO",
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.greenAccent))
-                    ]),
-                  ),
-                  const Icon(
-                    Icons.circle_notifications,
-                    size: 30,
-                    color: Color(0xFF46E69E),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Container(
-                padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-                child: Container(
-                  height: 40,
-                  child: TextField(
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(15),
-                      suffixIcon: const Icon(
-                        Icons.settings_outlined,
-                        color: Color(0xFF46E69E),
-                      ),
-                      prefixIcon: const Icon(
-                        Icons.search,
-                        color: Color(0xFF46E69E),
-                      ),
-                      label: const Text(
-                        "search Tasks",
-                        style: TextStyle(fontSize: 10),
-                      ),
-                      filled: true,
-                      fillColor: Color.fromARGB(255, 255, 255, 255),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide.none,
-                      ),
-                      /*  border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30), */
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          backgroundColor: Color.fromARGB(255, 0, 0, 0),
-        ),
+      flexibleSpace:appbarimage(),
+      elevation: 0,
+      toolbarHeight: 135,
+      title: appbartitle(),
+      backgroundColor: Color.fromARGB(255, 0, 0, 0),
+    ),
+    
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.black,
           onPressed: createtask,
@@ -296,15 +227,39 @@ class _todoappState extends State<todoapp> {
             color: Colors.white,
           ),
         ),
-        body: Stack(
+        body: Column(
           children: [
-            Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                  child: const Column(
-                    children: [
-                      /*  Container(
+            Container(
+              padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+              child: const Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0.8, 0.8, 0.8, 0),
+                    child: allotedtaskrow()
+                  ),
+                ],
+              ),
+            ),
+            content,
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+     /* actions: [
+              Icon(
+                Icons.circle_notifications,
+                size: 40,
+              )
+            ], */
+
+
+
+   /*  Container( add image in body on top 
+
                         decoration: BoxDecoration(
                           border:
                               Border.all(width: 6, color: Colors.pinkAccent),
@@ -317,30 +272,3 @@ class _todoappState extends State<todoapp> {
                         ),
                         height: 140,
                       ), */
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0.8, 0.8, 0.8, 0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Alloted Tasks",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 116, 116, 116)),
-                            ),
-                            Icon(Icons.notes),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                content,
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
