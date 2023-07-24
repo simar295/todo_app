@@ -6,20 +6,25 @@ import 'package:google_fonts/google_fonts.dart';
 
 class listwidget extends StatefulWidget {
   const listwidget(
-      {super.key, required this.getlist, required this.deletetask});
+      {super.key,
+      required this.getlist,
+      required this.deletetask,
+      required this.updatecheck,
+      required this.getvalue});
 
   final List getlist;
   final VoidCallback deletetask;
-  
+  final VoidCallback updatecheck;
+  final bool getvalue;
 
   @override
   State<listwidget> createState() => _listwidgetState();
 }
 
 class _listwidgetState extends State<listwidget> {
-  void changecheck(bool? x) {
+  void changecheck() {
     setState(() {
-      widget.getlist[2] = !widget.getlist[2];
+      widget.getlist[2] = widget.getvalue;
     });
   }
 
@@ -69,34 +74,38 @@ class _listwidgetState extends State<listwidget> {
               child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 8),
+                padding: const EdgeInsets.only(left: 8, top: 5),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      widget.getlist[0].toString(),
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 0, 0, 0),
-                          fontSize: 15),
+                    Flexible(
+                      child: Text(
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        widget.getlist[0].toString(),
+                        style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 0, 0, 0),
+                            fontSize: 15),
+                      ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(right: 0),
-
+                      margin: EdgeInsets.only(right: 5),
                       child: Checkbox(
                         value: widget.getlist[2],
                         onChanged: (value) {
-                          changecheck(value);
+                          changecheck();
+                          widget.updatecheck();
                         },
                       ),
                     ),
                   ],
                 ),
               ),
-               Padding(
+              Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
-                  widget.getlist[1].toString(), 
+                  widget.getlist[1].toString(),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 4,
                   style: TextStyle(

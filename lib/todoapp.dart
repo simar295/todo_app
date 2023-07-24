@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:todo_app/dialogwidget.dart';
 import 'package:todo_app/listwidget.dart';
@@ -9,7 +11,7 @@ class todoapp extends StatefulWidget {
   const todoapp({
     super.key,
   });
- 
+
   @override
   State<todoapp> createState() => _todoappState();
 }
@@ -36,7 +38,11 @@ class _todoappState extends State<todoapp> {
     final Map listdata = json.decode(getresponse.body);
     for (final item in listdata.entries) {
       setState(() {
-        mytodo.add([item.value['data'], item.value['description'],item.value['value'], ]);
+        mytodo.add([
+          item.value['data'],
+          item.value['description'],
+          item.value['value'],
+        ]);
       });
     }
   }
@@ -113,6 +119,40 @@ class _todoappState extends State<todoapp> {
     http.delete(delurl);
   }
 
+/////////////////////////////////////////////////////////////////////////
+  bool changecheck = false;
+  void doupdatecheck(int index) async {
+   
+    final geturl = Uri.https(
+        'todo-app-f7776-default-rtdb.firebaseio.com', "todo-data.json");
+    final getresponse = await http.get(geturl);
+    final Map listdata = json.decode(getresponse.body);
+
+    final delurl = Uri.https('todo-app-f7776-default-rtdb.firebaseio.com',
+        "todo-data/${listdata.keys.elementAt(index)}.json");
+    final response = await http.patch(
+      delurl,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: json.encode({
+        "data": mytodo[index][0],
+        "description": mytodo[index][1],
+        "value": changecheck,
+      }),
+    );
+
+       setState(() {
+      changecheck = !changecheck;
+
+    });
+    
+    if (!context.mounted) {
+      return;
+    }
+  }
+
+////////////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
     /*   final getprovider = ref.watch(giveprovider); */
@@ -157,6 +197,8 @@ class _todoappState extends State<todoapp> {
           padding: EdgeInsets.all(10),
           itemCount: mytodo.length,
           itemBuilder: (context, index) => listwidget(
+            updatecheck: () => doupdatecheck(index),
+            getvalue: changecheck,
             getlist: mytodo[index],
             deletetask: () {
               heredeletetask(index);
