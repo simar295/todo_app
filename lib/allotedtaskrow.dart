@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class allotedtaskrow extends StatelessWidget {
   const allotedtaskrow({super.key});
 
+  
   @override
   Widget build(BuildContext context) {
     return Row(
