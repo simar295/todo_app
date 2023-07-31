@@ -5,7 +5,6 @@ import 'package:todo_app/titlerow.dart';
 class appbartitle extends StatelessWidget {
   const appbartitle({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     return  Column(
