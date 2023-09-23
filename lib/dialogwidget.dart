@@ -10,7 +10,6 @@ class dialogbox extends StatefulWidget {
 
 
 
-
   final List getlist2;
   late final getcontroller;
   late final getcontroller2;
