@@ -13,7 +13,6 @@ class dialogbox extends StatefulWidget {
   late final getcontroller2;
   final VoidCallback onsave;
 
-
   @override
   State<dialogbox> createState() => _dialogboxState();
 }
